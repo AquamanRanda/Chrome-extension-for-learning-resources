@@ -9,13 +9,6 @@ TAG_RE = re.compile(r'<[^>]+>')
 def remove_tags(text):
     return TAG_RE.sub('', text)
 
-def get(URL):
-    """
-    returns the website data html content
-    """
-    return requests.get(url=URL).content
-
-
 def get_url(url):
     scraper = cloudscraper.create_scraper()
     resp = scraper.get(url)
@@ -27,7 +20,7 @@ def get_url(url):
 def get_featured(course):
     links =[]
     urls = "https://hackr.io/tutorials/learn-"+course
-    contents = get(urls)
+    contents = get_url(urls)
     soup = BeautifulSoup(contents, "lxml")
     feat = soup.find('span',{'id', 'tutorial-title-txt'}).get_text()
     for link in soup.findAll('a', {'id','js-tutorial-title marginright-sm'}):
@@ -50,7 +43,7 @@ def get_paid3(title):
     URL = "https://hackr.io/tutorials/learn-"+title+"?sort=upvotes&type_tags%5B%5D=2&languages%5B%5D=en"
     courses = []
     top=[]
-    soup = BeautifulSoup(get(URL),"lxml")
+    soup = BeautifulSoup(get_url(URL),"lxml")
     for link in soup.findAll("a", {'id','js-tutorial-title marginright-sm'}):
         if link.get('href').startswith("/"):
             links.append(link.get('href'))
@@ -67,7 +60,7 @@ def get_free3(title):
     URL = "https://hackr.io/tutorials/learn-"+title+"?sort=upvotes&type_tags%5B%5D=1&languages%5B%5D=en"
     courses = []
     top=[]
-    soup = BeautifulSoup(get(URL),"lxml")
+    soup = BeautifulSoup(get_url(URL),"lxml")
     for link in soup.findAll("a", {'id','js-tutorial-title marginright-sm'}):
         if link.get('href').startswith("/"):
             links.append(link.get('href'))
@@ -83,7 +76,7 @@ def get_list():
     names = []
     links = []
     URL = "https://hackr.io"
-    soup = BeautifulSoup(get(URL),"lxml")
+    soup = BeautifulSoup(get_url(URL),"lxml")
     for link in soup.findAll('a',{'id','topic-grid-item js-topic-grid-item'}):
         if link.get('href').startswith("/"):
             links.append(link.get('href'))
@@ -116,4 +109,4 @@ def test(name):
         return jsonify({'program': {name : {'featured': feat,'paid_top3' : paid,'free_top3': free}}})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8911)
+    app.run(debug=True)
