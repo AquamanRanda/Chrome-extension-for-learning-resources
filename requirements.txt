@@ -1,0 +1,14 @@
+beautifulsoup4==4.8.2
+bs4==0.0.1
+cloudscraper==1.2.18
+Flask==1.1.1
+Flask-Cors==3.0.8
+Flask-RESTful==0.3.7
+freeze==1.0.10
+lxml==4.4.2
+numpy==1.17.4 
+Pillow==6.2.1
+requests==2.22.0
+requests-toolbelt==0.9.1
+urllib3==1.25.7
+
