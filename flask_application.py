@@ -3,6 +3,7 @@ import cloudscraper
 from bs4 import BeautifulSoup
 import requests
 import re
+from flask_cors import CORS
 
 TAG_RE = re.compile(r'<[^>]+>')
 
@@ -92,6 +93,7 @@ def Merge(dict1, dict2):
     return res 
 
 app = Flask(__name__)
+CORS(app)
 a = get_list()
 languages = []
 for i in range(len(a)):
@@ -109,4 +111,4 @@ def test(name):
         return jsonify({'program': {name : {'featured': feat,'paid_top3' : paid,'free_top3': free}}})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=2000,debug=True)
