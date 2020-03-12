@@ -23,7 +23,13 @@ import axios from 'axios'
 			console.log(datas.free_top3[x])
 		}
 		cost=true;
+
 	};
+function openInNewTab(url) {
+  		var win = window.open(url, '_blank');
+		  win.focus();
+	}
+
 </script>
 
 <h1>{name}!</h1>
@@ -37,23 +43,21 @@ import axios from 'axios'
     {/each}
 </div>
 {#if cost}
-<div>
-	Featured:
-	{Object.keys(datas.featured)[0]}  - <a href={Object.values(datas.featured)[0]}>Click here!</a>
-	<div>
-	Free resourses:
+<div class="container">
+	<h4>Featured:</h4>
+	<div class="featured">
+	{Object.keys(datas.featured)[0]}  - <h6 on:click="{openInNewTab(Object.values(datas.featured)[0])}">Click here!</h6>
+	</div>
+	<h4>Free resourses:</h4>
+	<div class="free">
 	{#each Object.keys(datas) as item,i}
-		<div>
-			{Object.keys(datas.free_top3)[i]}  - <a href={Object.values(datas.free_top3)[i]}>Click here!</a>
-		</div>
+			{Object.keys(datas.free_top3)[i]}  - <h6 on:click="{openInNewTab(Object.values(datas.free_top3)[i])}">Click here!</h6>
 	{/each}
 	</div>
-	<div>
-	Paid resourses:
+	<h4>Paid resourses:</h4>
+	<div class="paid">
 	{#each Object.keys(datas) as item,i}
-		<div>
-			{Object.keys(datas.paid_top3)[i]}  - <a href={Object.values(datas.paid_top3)[i]}>Click here!</a>
-		</div>
+			{Object.keys(datas.paid_top3)[i]}  - <h6 on:click="{openInNewTab(Object.values(datas.paid_top3)[i])}">Click here!</h6>
 	{/each}
 	</div>
 </div>
@@ -69,6 +73,13 @@ import axios from 'axios'
 	h1 {
 		color: blue;
 		text-align: center
+	}
+	h6 {
+		cursor: pointer;
+		text-decoration: underline;
+	}
+	h4 {
+		color: darkgreen
 	}
 
 </style>
