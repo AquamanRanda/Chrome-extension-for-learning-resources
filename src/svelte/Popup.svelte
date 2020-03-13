@@ -3,7 +3,7 @@ export let name;
 let cost=false;
 import { onMount } from "svelte";
 import axios from 'axios'
-    const apiURL = "http://127.0.0.1:2000/";
+    const apiURL = "https://apiforlearning-resources.herokuapp.com/";
 	let data = {programs:[]};
 	let datas;
 	onMount(async function() {
@@ -12,7 +12,7 @@ import axios from 'axios'
 	});
 	async function apicall (name) {
 		console.log(name);
-		const apiURLs = `http://127.0.0.1:2000/${name}`;
+		const apiURLs = `https://apiforlearning-resources.herokuapp.com/${name}`;
 		console.log(apiURLs);
 		const responses = await axios.get(apiURLs);
 		console.log(responses);
@@ -35,6 +35,7 @@ function openInNewTab(url) {
 <h1>{name}!</h1>
 <h2>Programming Languages</h2>
 <img alt="logo" src="/icon128.png">
+<h3>Click and scroll down to see the resources!</h3>
 <div class='program'>
 	{#each data.programs as item }
         	<div class="lang">
